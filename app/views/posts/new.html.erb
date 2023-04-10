@@ -1,0 +1,23 @@
+<p id="notice"><%= flash[:notice] %></p>
+<h2>投稿フォーム</h2>
+<% if @post.errors.any? %>
+  <%= @post.errors.count %>件のエラーが発生しました
+  <ul>
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+<%= form_with model: @post, local:true do |f| %>
+  <h4>一言</h4>
+  <%= f.text_field :title %>
+  <h4>遊んだゲームのタイトル</h4>
+  <%= f.text_field :game_title %>
+  <h4>評価(10段階)</h4>
+  <%= f.number_field :evaluation, step: "1" , in: 1..10 %>
+
+  <h4>感想</h4>
+  <%= f.text_area :body %>
+
+  <%= f.submit '投稿' %>
+<% end %>

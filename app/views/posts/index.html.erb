@@ -1,0 +1,43 @@
+<p id="notice"><%= flash[:notice] %></p>
+ 
+<main>
+  <div class="container px-5 px-sm-0">
+    <h2>投稿一覧</h2>
+    <table class="table table-hover tableinverse">
+      <thead>
+            <tr>
+              <th></th>
+              <th>一言</th>
+              <th>ゲームタイトル</th>
+              <th>評価</th>
+
+              <th colspan="2"></th>
+            </tr>
+      </thead>
+      <% @posts.each do |post| %>
+      <tbody>
+            <tr>
+              <td>
+                <%= link_to "/users/#{post.user.id}" do %>
+                 <%= attachment_image_tag post.user, :profile_image, :fill, 100,100, format: 'jpeg', fallback: "no_image.jpg"%>
+                <% end %>
+                </br>
+                <%= link_to post.user.name ,user_path(post.user.id)%>
+              </td>
+              <td>
+                <%= link_to post.title ,post_path(post.id) %>
+              </td>
+              <td>
+                <%= post.game_title %>
+              </td>
+              <td>
+                <%= post.evaluation %>
+              </td>
+
+            </tr>
+          </tbody>
+      <% end %>
+      <%= paginate @posts %>
+    </table>
+  </div>
+</main>

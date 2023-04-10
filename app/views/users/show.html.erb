@@ -1,0 +1,55 @@
+<p id="notice"><%= flash[:notice] %></p>
+  
+<div>
+  <div class="container px-5 px-sm-0">
+    <h2>マイページ</h2>
+    <table class="table table-hover tableinverse">
+      <tbody>
+        <tr>
+          <td>
+            <%= attachment_image_tag @user, :profile_image, :fill, 100,100, format: 'jpeg', fallback: "no_image.jpg"%>
+          </td>
+          <td>
+            <h3><%= @user.name %></h3>
+            <p><%= @user.introduction %></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @user.id == current_user.id %>
+      <!--<p>%= link_to "プロフィール編集", edit_user_path(@user) %></p>-->
+      <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do%>
+        <i class="fas fa-user-cog"></i>
+      <% end %>
+    <% end %>
+
+    <table class="table table-hover tableinverse">
+      <thead>
+          <tr>
+            <th>一言</th>
+            <th>ゲームタイトル</th>
+            <th>評価</th>
+
+            <th colspan="2"></th>
+          </tr>
+      </thead>
+      <% @posts.each do |post| %>
+      <tbody>
+        <tr>
+          <td>
+            <%= link_to post.title ,post_path(post.id) %>
+          </td>
+          <td>
+            <%= post.game_title %>
+          </td>
+          <td>
+            <%= post.evaluation %>
+          </td>
+
+        </tr>
+      </tbody>
+      <% end %>
+      <%= paginate @posts %>
+    </table>
+  </div>
+</div>

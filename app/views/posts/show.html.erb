@@ -1,0 +1,44 @@
+<p id="notice"><%= flash[:notice] %></p>
+  <% if flash[:success] %>
+    <%= flash[:success] %>
+  <% end %>
+<div>
+  <div class="container px-5 px-sm-0">
+    <table class="table table-hover tableinverse">
+      <thead>
+          <tr>
+            <th colspan="1"></th>
+            <th>一言</th>
+            <th>評価</th>
+
+            <th colspan="2"></th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <%= attachment_image_tag @post.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+            </br>
+            <%= @post.user.name %>
+          </td>
+          <td>
+            <h2><%= @post.title %></h2>
+          </td>
+          <td>
+            <p><%= @post.evaluation %></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>ゲームタイトル</p>
+    <h3><%= @post.game_title %></h3>
+    <p>感想</br><%= @post.body %></p>
+    <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
+    <% if @post.user == current_user %>
+
+      <%= link_to "編集", edit_post_path(@post) ,class: "btn btn-sm btn-success" %>
+      <%= link_to "削除", post_path(@post), method: :delete ,"data-confirm"=> "Are you sure?",class: "btn btn-sm btn-danger destroy_book_70142" %>
+    <% end %>
+  </div>
+
+</div>
